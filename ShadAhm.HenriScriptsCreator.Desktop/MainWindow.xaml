@@ -1,0 +1,105 @@
+﻿<Window x:Class="ShadAhm.HenriScriptsCreator.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        mc:Ignorable="d ignore"
+        Height="600"
+        Width="1000"
+        Title="Henri ShadAhm.HenriScriptsCreator"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DockPanel>
+            <Border Padding="4" DockPanel.Dock="Top" VerticalAlignment="Stretch">
+                <StackPanel>
+                    <TextBlock>Excel Input:</TextBlock>
+                    <TextBox Text="{Binding Path=FilePath}"/>
+                    <Button Content="Browse" Command="{Binding BrowseCommand}" Padding="6,3"/>
+                    <GroupBox Margin="0,15" Padding="0,5">
+                        <GroupBox.Header>
+                            <Label>Settings</Label>
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <TextBlock> Write to Dir:</TextBlock>
+                            <TextBox Text="{Binding Path=OutputFolderPath}"/>
+                            <TextBlock> Requester:</TextBlock>
+                            <TextBox Text="{Binding Path=RequesterUsername}"/>
+                            <TextBlock> Ticket No:</TextBlock>
+                            <TextBox Text="{Binding Path=TicketNumber}"/>
+
+                            <Button Content="Use Settings File" Margin="0,10" Command="{Binding BrowseSettingsCommand}"></Button>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </Border>
+            <Button VerticalAlignment="Bottom" DockPanel.Dock="bottom" Content="Execute" Command="{Binding RunCommand}" Background="Red" Height="50"/>
+        </DockPanel>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <Border Padding="10" Background="#FF272729">
+                    <ItemsControl x:Name="SuccessMessageList" ItemsSource="{Binding SuccessMessages}"  Foreground="GhostWhite"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text = "{Binding Path=Text, Mode = OneWay}" Margin="1" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </ScrollViewer>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+            <ScrollViewer Grid.Column="2">
+                <Border Padding="10" Background="#FF272729">
+                    <ItemsControl x:Name="ErrorMessageList" ItemsSource="{Binding ErrorMessages}" Foreground="#FF2D2844">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text = "{Binding Path=Text, Mode = OneWay}" Margin="1" Foreground="#FFDA5151"   />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Border.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Print" Command="{Binding PrintErrorsCommand}" />
+                        </ContextMenu>
+                    </Border.ContextMenu>
+                </Border>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
