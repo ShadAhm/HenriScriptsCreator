@@ -100,8 +100,8 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.ViewModel
 
                 if (!string.IsNullOrWhiteSpace(settingsFile))
                 {
-                    AppSettingsService serv = new AppSettingsService();
-                    var o = serv.ReadAppSettings(fileDialog.FileName);
+                    var serv = new AppSettingsService<AppSettingsModel>();
+                    AppSettingsModel o = serv.ReadAppSettings(fileDialog.FileName);
 
                     this.OutputFolderPath = o.OutputDir;
                     this.RequesterUsername = o.RequesterUsername;
@@ -119,8 +119,8 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.ViewModel
 
             if (result.Value)
             {
-                AppSettingsService serv = new AppSettingsService();
-                var o = serv.ReadAppSettings(fileDialog.FileName);
+                var serv = new AppSettingsService<AppSettingsModel>();
+                AppSettingsModel o = serv.ReadAppSettings(fileDialog.FileName);
 
                 this.OutputFolderPath = o.OutputDir;
                 this.RequesterUsername = o.RequesterUsername;

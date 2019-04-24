@@ -4,14 +4,14 @@ using System.IO;
 
 namespace ShadAhm.HenriScriptsCreator.Service.Functions
 {
-    public class AppSettingsService
+    public class AppSettingsService<T>
     {
-        public AppSettingsModel ReadAppSettings(string settingsFilePath)
+        public T ReadAppSettings(string settingsFilePath)
         {
             using (StreamReader r = new StreamReader(settingsFilePath))
             {
                 string json = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<AppSettingsModel>(json);
+                return JsonConvert.DeserializeObject<T>(json);
             }
         }
     }
