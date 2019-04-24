@@ -8,15 +8,15 @@ using System.Windows.Input;
 
 namespace ShadAhm.HenriScriptsCreator.Desktop.Command
 {
-    public class FileBrowseCommand : ICommand
+    public class GenericCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        public Action _execute; 
+        public Action _action; 
 
-        public FileBrowseCommand(Action laleyoSayo)
+        public GenericCommand(Action action)
         {
-            _execute = laleyoSayo;
+            _action = action;
         }
 
         public bool CanExecute(object parameter)
@@ -26,7 +26,7 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.Command
 
         public void Execute(object parameter)
         {
-            _execute.Invoke(); 
+            _action.Invoke(); 
         }
     }
 }

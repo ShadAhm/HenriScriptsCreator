@@ -45,7 +45,7 @@
                         <Button Content="Browse" Command="{Binding BrowseCommand}" Padding="6,3"/>
                         <GroupBox Margin="0,15" Padding="0,5">
                             <GroupBox.Header>
-                                <Label>Settings</Label>
+                                <Label>Upload Settings</Label>
                             </GroupBox.Header>
                             <StackPanel>
                                 <TextBlock> Write to Dir:</TextBlock>

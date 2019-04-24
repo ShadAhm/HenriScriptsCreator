@@ -78,9 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\PrintErrorsCommand.cs" />
-    <Compile Include="Command\RunCommand.cs" />
-    <Compile Include="Command\FileBrowseCommand.cs" />
+    <Compile Include="Command\GenericCommand.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />

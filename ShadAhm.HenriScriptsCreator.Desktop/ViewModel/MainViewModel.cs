@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
+using Microsoft.Win32;
 using ShadAhm.HenriScriptsCreator.Desktop.Command;
 using ShadAhm.HenriScriptsCreator.Desktop.Model;
 using ShadAhm.HenriScriptsCreator.Service.Functions;
 using ShadAhm.HenriScriptsCreator.Service.Models;
 using ShadAhm.HenriScriptsCreator.Service.Models.Enums;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -180,10 +180,10 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.ViewModel
             _dataService = dataService;
             _functionName = "AssetAttributeUpdaterSafe"; 
 
-            this.BrowseCommand = new FileBrowseCommand(BrowseFile);
-            this.BrowseSettingsCommand = new FileBrowseCommand(BrowseSettings); 
-            this.PrintErrorsCommand = new PrintErrorsCommand(PrintErrors); 
-            this.RunCommand = new RunCommand(Run);
+            this.BrowseCommand = new GenericCommand(BrowseFile);
+            this.BrowseSettingsCommand = new GenericCommand(BrowseSettings); 
+            this.PrintErrorsCommand = new GenericCommand(PrintErrors); 
+            this.RunCommand = new GenericCommand(Run);
         }
 
         public void PrintErrors()
