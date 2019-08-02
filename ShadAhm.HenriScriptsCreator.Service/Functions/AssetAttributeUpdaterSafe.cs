@@ -9,7 +9,7 @@ namespace ShadAhm.HenriScriptsCreator.Service.Functions
 {
     public class AssetAttributeUpdaterSafe : FunctionBaseAbstract
     {
-        public AssetAttributeUpdaterSafe(string path, string outputDirPath, string requesterName, string ticketNo, bool dryRun) : base(path, outputDirPath, requesterName, ticketNo, dryRun)
+        public AssetAttributeUpdaterSafe(DoFunctionSetting options) : base(options)
         {
         }
 
@@ -17,8 +17,19 @@ namespace ShadAhm.HenriScriptsCreator.Service.Functions
         {
             yield return new ConsoleMessage(ConsoleMessageType.Okay, $"Begin. Is dry run : { dryRun }.");
 
-            Worksheet sheet = (Worksheet)excelUtil.Workbook.Sheets["Sheet1"];
+            foreach (var sheetName in sheetNames)
+            {
+                Worksheet sheet = (Worksheet)excelUtil.Workbook.Sheets[sheetName];
 
+                foreach (var message in DoSheet(sheet))
+                {
+                    yield return message; 
+                }
+            }
+        }
+
+        private IEnumerable<ConsoleMessage> DoSheet(Worksheet sheet)
+        {
             string dir = $"{ this.outputDirPath }/ticket_{ this.ticketNo }_{ this.requesterName }";
             Directory.CreateDirectory(dir);
 
@@ -36,11 +47,11 @@ namespace ShadAhm.HenriScriptsCreator.Service.Functions
 
                 string assetTag = sheet.Cells[excelRowNumber, 1].Value2?.ToString().Trim();
 
-                if (assetTag == "ENDMARKER") break; 
+                if (assetTag == "ENDMARKER") break;
 
-                string assetAttributeName = sheet.Cells[excelRowNumber, 5].Value2?.ToString().Trim();
-                string newValue = sheet.Cells[excelRowNumber, 6].Value2?.ToString().Trim();
-                string newAssetAttributeId = sheet.Cells[excelRowNumber, 7].Value2?.ToString().Trim();
+                string assetAttributeName = sheet.Cells[excelRowNumber, 10].Value2?.ToString().Trim();
+                string newValue = sheet.Cells[excelRowNumber, 9].Value2?.ToString().Trim();
+                string newAssetAttributeId = sheet.Cells[excelRowNumber, 6].Value2?.ToString().Trim();
                 int newAssetAttributeIdInt;
 
                 if (!int.TryParse(newAssetAttributeId, out newAssetAttributeIdInt))

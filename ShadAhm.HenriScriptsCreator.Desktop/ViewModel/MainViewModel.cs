@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -128,7 +129,7 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.ViewModel
             }
         }
 
-        public void Run()
+        public async void Run()
         {
             SuccessMessages = new ObservableCollection<ConsoleMessage>();
             ErrorMessages = new ObservableCollection<ConsoleMessage>();
@@ -139,10 +140,12 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.ViewModel
                 return;
             }
 
-            var bk = new BackgroundWorker();
-            bk.DoWork += (s, e) =>
+            await Task.Run(() =>
             {
-                _doService = new AssetAttributeUpdaterSafe(this._filePath, this.OutputFolderPath, this.RequesterUsername, this.TicketNumber, true);
+                var options = new DoFunctionSetting { DryRun = false, OutputDirPath = this.OutputFolderPath, RequesterName = this.RequesterUsername, TicketNo = this.TicketNumber, Path = this.FilePath };
+                options.SheetNames = new List<string> { "Sheet1" }; 
+
+                _doService = new AssetAttributeUpdaterSafe(options);
 
                 bool exitLoop = false;
                 foreach (ConsoleMessage statusMessage in _doService.Do())
@@ -171,8 +174,7 @@ namespace ShadAhm.HenriScriptsCreator.Desktop.ViewModel
 
                     if (exitLoop) break;
                 }
-            };
-            bk.RunWorkerAsync();
+            }); 
         }
 
         public MainViewModel(IDataService dataService)

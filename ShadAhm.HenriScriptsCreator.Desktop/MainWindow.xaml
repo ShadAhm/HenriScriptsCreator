@@ -7,7 +7,7 @@
         mc:Ignorable="d ignore"
         Height="600"
         Width="1000"
-        Title="Henri ShadAhm.HenriScriptsCreator"
+        Title="HenriScripts Creator"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>

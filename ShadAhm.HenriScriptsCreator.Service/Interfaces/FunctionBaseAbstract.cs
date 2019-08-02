@@ -15,16 +15,18 @@ namespace ShadAhm.HenriScriptsCreator.Service.Interfaces
         protected string requesterName;
         protected string ticketNo; 
         protected bool dryRun;
+        protected IEnumerable<string> sheetNames; 
         
         protected ExcelUtil excelUtil;
 
-        public FunctionBaseAbstract(string path, string outputDirPath, string requesterName, string ticketNo, bool dryRun)
+        public FunctionBaseAbstract(DoFunctionSetting options)
         {
-            this.path = path;
-            this.dryRun = dryRun;
-            this.outputDirPath = outputDirPath;
-            this.requesterName = requesterName;
-            this.ticketNo = ticketNo;
+            this.path = options.Path;
+            this.dryRun = options.DryRun;
+            this.outputDirPath = options.OutputDirPath;
+            this.requesterName = options.RequesterName;
+            this.ticketNo = options.TicketNo;
+            this.sheetNames = options.SheetNames; 
 
             this.excelUtil = new ExcelUtil(path);
         }

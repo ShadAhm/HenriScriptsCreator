@@ -61,6 +61,7 @@
     <Compile Include="Interfaces\FunctionBaseAbstract.cs" />
     <Compile Include="Models\AppSettingsModel.cs" />
     <Compile Include="Models\ConsoleMessage.cs" />
+    <Compile Include="Models\DoFunctionSetting.cs" />
     <Compile Include="Models\Enums\ConsoleMessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ExcelUtil.cs" />
